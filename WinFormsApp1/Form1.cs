@@ -38,11 +38,58 @@ namespace WinFormsApp1
             calificaciones[2,1] = Convert.ToDouble(texboxEst3_2.Text);
             calificaciones[2,2] = Convert.ToDouble(texboxEst3_3.Text);
 
-            //Variables promedios
+            //Variables promedios por estudiante
 
             double[] PromediosEstudiantes = new double[3];
 
+            //Calcular promedios por estudiantes
 
+            for (int i = 0; i < calificaciones.GetLength(0); i++)
+            {
+                double sumaEstudiante = 0;
+
+                for (int j = 0; j < calificaciones.GetLength(1); j++)
+                {
+                    sumaEstudiante += calificaciones[i, j];
+                }
+
+                PromediosEstudiantes [i] = sumaEstudiante / calificaciones.GetLength (1);
+
+            }
+
+            //Calcular promedios por examenes
+
+            double[] promediosExamenes = new double[3];
+
+            for (int j = 0; j < calificaciones.GetLength(1); j++)
+            {
+
+                double sumaexamen = 0;
+
+                for (int i = 0; i < calificaciones.GetLength(0); i++)
+                {
+                    sumaexamen += calificaciones[i, j];
+                }
+
+                promediosExamenes[j] = sumaexamen / calificaciones.GetLength (0);
+            }
+
+                //Mostrarpromedios en Listbox
+
+                listPromediosEst.Items.Clear();
+
+                for (int i = 0; i < PromediosEstudiantes.Length; i++)
+                {
+                    listPromediosEst.Items.Add($"Promedio del estudiante {i + 1} : {PromediosEstudiantes[i]:0.00}");
+                }
+
+            // Mostrar promedios por exámenes (columnas) en ListBox
+            listPromediosEx.Items.Clear();
+
+            for (int j = 0; j < promediosExamenes.Length; j++)
+            {
+                listPromediosEx.Items.Add($"Promedio del examen {j + 1}: {promediosExamenes[j]:0.00}");
+            }
 
         }
     }
